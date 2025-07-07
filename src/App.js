@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import listaeventos from './components/listaeventos';
-
+import Listareventos from './components/Listaeventos';
+import Formulario from './components/Formulario';
 
 
 function App() {
@@ -20,7 +20,8 @@ function App() {
   return (
     <div class name="App">
       <h1>Gestion de eventos comunitarios</h1>
-      <listareventos eventos={eventos} setEventos={setEventos}/>
+      <Formulario eventos={eventos} setEventos={setEventos} />
+      <Listareventos eventos={eventos} setEventos={setEventos}/>
     </div>
   );
 }
