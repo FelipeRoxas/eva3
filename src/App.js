@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import Listareventos from './components/Listaeventos';
+import Listaeventos from './components/Listaeventos';
 import Formulario from './components/Formulario';
 
 
@@ -21,7 +21,7 @@ function App() {
     <div class name="App">
       <h1>Gestion de eventos comunitarios</h1>
       <Formulario eventos={eventos} setEventos={setEventos} />
-      <Listareventos eventos={eventos} setEventos={setEventos}/>
+      <Listaeventos eventos={eventos} setEventos={setEventos}/>
     </div>
   );
 }

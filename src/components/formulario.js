@@ -1,4 +1,4 @@
-import { useState,useEffect } from "react";
+import { useState,useEffect } from 'react';
 
 function Formulario({ eventos, setEventos}) {
     const [evento, setEvento] = useState({
