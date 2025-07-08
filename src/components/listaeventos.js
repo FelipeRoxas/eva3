@@ -1,15 +1,14 @@
 import React from 'react';
 
-function Listaeventos({ eventos, setEventos}) {
+function ListaEventos({ eventos, setEventos}) {
     const eliminarEventos = (index) => {
         const nuevos = eventos.filter((_, i) => i !== index);
         setEventos(nuevos);
     };
 
     const editarEvento = (index) =>{
-        const eventos = eventos[index];
-        const formulario = document.querySelector('form');
-        formulario.scrollIntoView({ behavior: 'smooth' });
+        const Formulario = document.querySelector('form');
+        Formulario.scrollIntoView({ behavior: 'smooth' });
         const evt = new CustomEvent('editarEvento', { detail: { index} });
         window.dispatchEvent(evt);
      };
@@ -40,4 +39,4 @@ function Listaeventos({ eventos, setEventos}) {
     );
 }
 
-export default Listaeventos;
+export default ListaEventos;

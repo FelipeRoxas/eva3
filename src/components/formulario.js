@@ -21,7 +21,7 @@ function Formulario({ eventos, setEventos}) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (!evento.nombre || !evento.tipo || !evento.fecha) {
+        if (isNaN(evento.asistentes)|| evento.asistentes < 0) {
             return alert ('Completa todos los campos obligatorios');
         }
 
@@ -58,10 +58,10 @@ function Formulario({ eventos, setEventos}) {
     },  []);
 
     useEffect(() => {
-        if (modoEdicion && idEdicion !== null) {
+        if (modoEdicion && idEdicion !== null && eventos[idEdicion]) {
             setEvento(eventos[idEdicion]);
         }
-    },  [modoEdicion, idEdicion]);
+    },  [modoEdicion, idEdicion, eventos]);
 
     return (
         <form onSubmit={handleSubmit}>
