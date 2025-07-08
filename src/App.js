@@ -22,7 +22,7 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Gestion de eventos comunitarios</h1>
+      <h1>Gestion de Eventos Comunitarios</h1>
       <Formulario eventos={eventos} setEventos={setEventos} />
       <ListaEventos eventos={eventos} setEventos={setEventos}/>
     </div>
