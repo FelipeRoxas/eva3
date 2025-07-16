@@ -1,4 +1,5 @@
 import React from 'react';
+import { db } from '../firebaseConfig';
 
 function ListaEventos({ eventos, setEventos}) {
     const eliminarEventos = (index) => {

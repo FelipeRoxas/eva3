@@ -1,4 +1,5 @@
 import { useState,useEffect } from 'react';
+import { db } from '../firebaseConfig';
 
 function Formulario({ eventos, setEventos}) {
     const [evento, setEvento] = useState({
