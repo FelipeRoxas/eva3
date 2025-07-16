@@ -7,19 +7,22 @@ function App() {
   const [eventos, setEventos] = useState ([]);
 
   useEffect (() => {
-    const datos= localStorage.getItem('eventos');
-    if (datos) {
-      setEventos(JSON.parse(datos));
-    }
+    const obtenerEventos = async() => {
+      try {
+        const querySnapshot = await getDocs(collection(db, 'eventos'));
+        const eventosFirebase = querySnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }));
+        setEventos(eventosFirebase);
+      } catch (error) {
+        console.error('Error al obtener eventos:', error);
+      }
+    };
+
+    obtenerEventos();
   }, []);
-
-  useEffect(() => {
-    console.log("Guardado de eventos:", eventos);
-    localStorage.setItem('eventos' ,JSON.stringify(eventos));
-
-    const verificacion = localStorage.getItem('eventos');
-    console.log("Contenidode localStorage:", verificacion)
-  }, [eventos]);
+    
 
   return (
     <div className="App">

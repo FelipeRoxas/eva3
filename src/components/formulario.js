@@ -1,4 +1,5 @@
 import { useState,useEffect } from 'react';
+import { collection, addDoc, doc, updateDoc } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
 
 function Formulario({ eventos, setEventos}) {
@@ -8,7 +9,7 @@ function Formulario({ eventos, setEventos}) {
         tipo: '',
         descripcion: '',
         fecha: ''
-    })
+    });
     
     const [modoEdicion, setModoEdicion] = useState(false);
     const [idEdicion, setIdEdicion] = useState(null);
@@ -20,30 +21,39 @@ function Formulario({ eventos, setEventos}) {
         });
     };
 
-    const handleSubmit = (e) => {
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        if (isNaN(evento.asistentes)|| evento.asistentes < 0) {
+
+        if (!evento.nombre || !evento.tipo || !evento.fecha || isNaN(evento.asistentes)|| evento.asistentes < 0) {
             return alert ('Completa todos los campos obligatorios');
         }
 
-        if (modoEdicion) {
-            const nuevosEventos = eventos.map ((ev, index) =>
-                index === idEdicion ? evento : ev
-            );
-            setEventos(nuevosEventos);
-            setModoEdicion(false);
-            setIdEdicion(null);
-        } else {
-            setEventos([...eventos, evento]);
-        }
+        try {
+        
+            if (modoEdicion) {
+                const nuevosEventos = eventos.map ((ev, index) =>
+                    index === idEdicion ? evento : ev
+                );
+                setEventos(nuevosEventos);
+                setModoEdicion(false);
+                setIdEdicion(null);
+            } else {
+                const docRef = await addDoc(collection(db, 'eventos'), eventos);
+                setEventos([...eventos, evento]);
+            }
 
-        setEvento({
-            nombre: '',
-            asistentes: '',
-            tipo: '',
-            descripcion: '',
-            fecha: ''
-        });
+            setEvento({
+                nombre: '',
+                asistentes: '',
+                tipo: '',
+                descripcion: '',
+                fecha: ''
+            });
+
+        } catch (error) {
+            console.error('Error al guardar el evento:', error);
+        }
     };
 
     useEffect(() => {

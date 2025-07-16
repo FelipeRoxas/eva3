@@ -1,4 +1,5 @@
 import React from 'react';
+import { deleteDoc, doc } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
 
 function ListaEventos({ eventos, setEventos}) {
