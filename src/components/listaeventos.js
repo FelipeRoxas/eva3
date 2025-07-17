@@ -2,43 +2,43 @@ import React from 'react';
 import { deleteDoc, doc } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
 
-function ListaEventos({ eventos, setEventos}) {
-    const eliminarEventos = (index) => {
-        const nuevos = eventos.filter((_, i) => i !== index);
-        setEventos(nuevos);
+function ListaEventos({ eventos, setEventos }) {
+  const eliminarEventos = async (index) => {
+    const evento = eventos[index];
+    if (evento?.id) {
+      await deleteDoc(doc(db, 'eventos', evento.id));
+      const nuevos = eventos.filter((_, i) => i !== index);
+      setEventos(nuevos);
+    }
+  };
+    const editarEvento = (index) => {
+        const form = document.querySelector('form');
+        form.scrollIntoView({ behavior: 'smooth' });
+        const evt = new CustomEvent('editarEvento', { detail: { index } });
+        window.dispatchEvent(evt);
     };
 
-    const editarEvento = (index) =>{
-        const Formulario = document.querySelector('form');
-        Formulario.scrollIntoView({ behavior: 'smooth' });
-        const evt = new CustomEvent('editarEvento', { detail: { index} });
-        window.dispatchEvent(evt);
-     };
-
-     return (
+    return (
         <div>
-            <h2>Eventos Registrados</h2>
-            {eventos.length === 0 ? <p>No hay eventos</p> : (
-                <ul>
-                    {eventos.map((ev, index) => (
-                        <li key={index}>
-                            <strong>{ev.nombre}</strong>
-                            - {ev.tipo}
-                            - {ev.fecha}
-                            - {ev.asistentes}
-                            personas
-                            <br />
-                            <em>{ev.descripcion}</em>
-                            <br />
-                            <button onClick={() => editarEvento(index)}>Editar</button>
-                            <button onClick={() => eliminarEventos(index)}>Eliminar</button>
-                        </li>
-                    ))}
-
-                </ul>
-            )}
+        <h2>Eventos Registrados</h2>
+        {eventos.length === 0 ? (
+            <p>No hay eventos</p>
+        ) : (
+            <ul>
+            {eventos.map((ev, index) => (
+                <li key={ev.id}>
+                <strong>{ev.nombre}</strong> - {ev.tipo} - {ev.fecha} - {ev.asistentes} personas
+                <br />
+                <em>{ev.descripcion}</em>
+                <br />
+                <button onClick={() => editarEvento(index)}>Editar</button>
+                <button onClick={() => eliminarEventos(index)}>Eliminar</button>
+                </li>
+            ))}
+            </ul>
+        )}
         </div>
-    );
+    );  
 }
 
 export default ListaEventos;
