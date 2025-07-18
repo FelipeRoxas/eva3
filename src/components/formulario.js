@@ -76,6 +76,7 @@ function Formulario({ eventos, setEventos }) {
     <form onSubmit={handleSubmit} className="formulario">
     <h2>{modoEdicion ? 'Editar Evento' : 'Registrar Evento'}</h2>
 
+
     <div className="form-grid">
         <div>
             <label>Nombre del evento</label>

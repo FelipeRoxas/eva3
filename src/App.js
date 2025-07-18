@@ -30,9 +30,12 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Gestion de Eventos Comunitarios</h1>
+      <h1>Plataforma de Gestión de Eventos Comunitarios</h1>
       <Formulario eventos={eventos} setEventos={setEventos} />
       <ListaEventos eventos={eventos} setEventos={setEventos}/>
+      <footer className="footer">
+        <p>© 2025 - Sistema de Gestión de Eventos | Desarrollado por Felipe Rozas</p>
+      </footer>
     </div>
   );
 }
