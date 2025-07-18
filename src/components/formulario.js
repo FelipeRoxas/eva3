@@ -73,24 +73,38 @@ function Formulario({ eventos, setEventos }) {
   }, [modoEdicion, idEdicion, eventos]);
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>{modoEdicion ? 'Editar Evento' : 'Registrar Evento'}</h2>
+    <form onSubmit={handleSubmit} className="formulario">
+    <h2>{modoEdicion ? 'Editar Evento' : 'Registrar Evento'}</h2>
 
-      <input type="text" name="nombre" placeholder="Nombre del evento" value={evento.nombre} onChange={handleChange} required />
-      <input type="number" name="asistentes" placeholder="N° Asistentes" value={evento.asistentes} onChange={handleChange} />
+    <div className="form-grid">
+        <div>
+            <label>Nombre del evento</label>
+            <input type="text" name="nombre" value={evento.nombre} onChange={handleChange} required />
 
-      <select name="tipo" value={evento.tipo} onChange={handleChange} required>
-        <option value="">Seleccione tipo</option>
-        <option value="Reunión">Reunión</option>
-        <option value="Charla">Charla</option>
-        <option value="Actividad social">Actividad social</option>
-      </select>
+            <label>N° Asistentes</label>
+            <input type="number" name="asistentes" value={evento.asistentes} onChange={handleChange} />
+        </div>
 
-      <textarea name="descripcion" placeholder="Descripción" value={evento.descripcion} onChange={handleChange}></textarea>
-      <input type="date" name="fecha" value={evento.fecha} onChange={handleChange} required />
+        <div>
+        <label>Tipo de evento</label>
+        <select name="tipo" value={evento.tipo} onChange={handleChange} required>
+            <option value="">Seleccione tipo</option>
+            <option value="Reunión">Reunión</option>
+            <option value="Charla">Charla</option>
+            <option value="Actividad social">Actividad social</option>
+        </select>
 
-      <button type="submit">{modoEdicion ? 'Actualizar' : 'Agregar'}</button>
+        <label>Fecha</label>
+        <input type="date" name="fecha" value={evento.fecha} onChange={handleChange} required />
+        </div>
+    </div>
+
+    <label>Descripción</label>
+        <textarea name="descripcion" value={evento.descripcion} onChange={handleChange}></textarea>
+
+        <button type="submit">{modoEdicion ? 'Actualizar' : 'Agregar'}</button>
     </form>
+
   );
 }
 
